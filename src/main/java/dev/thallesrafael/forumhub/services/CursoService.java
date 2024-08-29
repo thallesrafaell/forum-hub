@@ -28,4 +28,8 @@ public class CursoService {
         repository.save(curso);
         return curso;
     }
+
+    public void deletarPorId(Long id) {
+        repository.deleteById(id);
+    }
 }

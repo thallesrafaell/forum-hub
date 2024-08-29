@@ -28,4 +28,16 @@ public class CursoController {
         return ResponseEntity.ok(curso);
 
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Curso> cursoPorId(@PathVariable Long id){
+        var curso = service.cursoPorId(id);
+        return ResponseEntity.ok(curso);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id){
+        service.deletarPorId(id);
+        return ResponseEntity.noContent().build();
+    }
 }
