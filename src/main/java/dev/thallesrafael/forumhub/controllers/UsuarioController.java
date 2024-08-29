@@ -30,4 +30,16 @@ public class UsuarioController {
 
        return ResponseEntity.ok(new UsuarioDTO(usuario));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> usuarioPorId(@PathVariable Long id){
+        var usuario = usuarioService.usuarioPorId(id);
+        return ResponseEntity.ok(new UsuarioDTO(usuario));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletaPorId(@PathVariable Long id){
+        usuarioService.deletaPorID(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -27,5 +27,13 @@ public class UsuarioService {
         return usuario;
     }
 
+    public Usuario usuarioPorId(Long id){
+        return repository.findById(id).orElseThrow(()-> new RuntimeException("Usuário não encontrado!"));
 
+    }
+
+
+    public void deletaPorID(Long id) {
+        repository.deleteById(id);
+    }
 }
