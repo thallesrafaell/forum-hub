@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.services;
 
 
+import dev.thallesrafael.forumhub.domain.DTO.UsuarioAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import dev.thallesrafael.forumhub.domain.Usuario;
 import dev.thallesrafael.forumhub.repositories.UsuarioRepository;
@@ -15,6 +16,13 @@ public class UsuarioService {
 
     public Usuario cadastrar(UsuarioCadastroDTO dados){
         var usuario = new Usuario(dados);
+        repository.save(usuario);
+        return usuario;
+    }
+
+    public Usuario atualizar(UsuarioAttDTO dados){
+        var usuario = repository.getReferenceById(dados.id());
+        usuario.atualizarInformacoes(dados);
         repository.save(usuario);
         return usuario;
     }

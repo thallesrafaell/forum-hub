@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
 
+import dev.thallesrafael.forumhub.domain.DTO.UsuarioAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,5 +30,15 @@ public class Usuario {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = dados.senha();
+    }
+
+    public void atualizarInformacoes(UsuarioAttDTO dados){
+
+        if(dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if(dados.senha() != null){
+            this.senha = dados.senha();
+        }
     }
 }
