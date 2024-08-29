@@ -21,4 +21,11 @@ public class CursoController {
         var uri = uriBuilder.path("/cursos/{id}").buildAndExpand(curso.getId()).toUri();
         return ResponseEntity.created(uri).body(curso);
     }
+
+    @PutMapping
+    public ResponseEntity<Curso> atualizar(@RequestBody Curso dados){
+        var curso = service.atualizar(dados);
+        return ResponseEntity.ok(curso);
+
+    }
 }

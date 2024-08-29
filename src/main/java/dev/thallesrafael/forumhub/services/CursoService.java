@@ -17,4 +17,15 @@ public class CursoService {
     public Curso cadastrar(CusoCadastroDto dados){
         return repository.save(new Curso(dados));
     }
+
+    public Curso cursoPorId(Long id) {
+        return repository.findById(id).orElseThrow(()-> new RuntimeException("Id do curso invalido"));
+    }
+
+    public Curso atualizar(Curso dados){
+        Curso curso = cursoPorId(dados.getId());
+        curso.atulizarInformacoes(dados);
+        repository.save(curso);
+        return curso;
+    }
 }
