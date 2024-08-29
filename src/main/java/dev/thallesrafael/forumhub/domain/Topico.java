@@ -1,5 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.thallesrafael.forumhub.domain.DTO.DadosCadastroTopico;
 import dev.thallesrafael.forumhub.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +28,7 @@ public class Topico {
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
+    @JsonManagedReference
     private Usuario autor;
 
     @ManyToOne
@@ -33,5 +36,12 @@ public class Topico {
     private  Curso curso;
 
 
-
+    public Topico(DadosCadastroTopico dados) {
+        this.titulo = dados.titulo();
+        this.mensagem = dados.mensagem();
+        this.dataCriacao = dados.data();
+        this.autor = dados.autor();
+        this.curso =dados.curso();
+        this.status = Status.ABERTO;
+    }
 }

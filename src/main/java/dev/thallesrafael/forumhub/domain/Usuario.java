@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import jakarta.persistence.*;
@@ -24,6 +25,7 @@ public class Usuario {
     private String senha;
 
     @OneToMany(mappedBy = "autor")
+    @JsonBackReference
     private List<Topico> topicos;
 
     public Usuario(UsuarioCadastroDTO dados){
