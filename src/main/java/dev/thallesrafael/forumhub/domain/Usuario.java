@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
 
+import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,10 @@ public class Usuario {
 
     @OneToMany(mappedBy = "autor")
     private List<Topico> topicos;
+
+    public Usuario(UsuarioCadastroDTO dados){
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
+    }
 }
