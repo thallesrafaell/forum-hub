@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.thallesrafael.forumhub.controllers.RespostaAttDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,4 +33,9 @@ public class Resposta {
     @JsonManagedReference
     private Usuario autor;
 
+    public void atualizarInformacoes(RespostaAttDTO dados) {
+        if (dados.mensagem() != null && dados.idAutor().equals(this.autor.getId())){
+            this.mensagem = dados.mensagem();
+        }
+    }
 }

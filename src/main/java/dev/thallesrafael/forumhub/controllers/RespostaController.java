@@ -36,4 +36,16 @@ public class RespostaController {
         var resposta = service.listarPorId(id);
         return ResponseEntity.ok(resposta);
     }
+
+    @PutMapping
+    public ResponseEntity<Resposta> atualizar(@RequestBody RespostaAttDTO dados){
+        var resposta = service.atualizar(dados);
+        return ResponseEntity.ok(resposta);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

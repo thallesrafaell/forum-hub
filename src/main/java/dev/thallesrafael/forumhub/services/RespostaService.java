@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.services;
 
 
+import dev.thallesrafael.forumhub.controllers.RespostaAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.RespostaDTO;
 import dev.thallesrafael.forumhub.domain.Resposta;
 import dev.thallesrafael.forumhub.domain.Usuario;
@@ -39,5 +40,17 @@ public class RespostaService {
 
     public Resposta listarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Id não encontrado ou inválido"));
+    }
+
+    public Resposta atualizar(RespostaAttDTO dados) {
+        var reposta = listarPorId(dados.id());
+        reposta.atualizarInformacoes(dados);
+        return  repository.save(reposta);
+
+    }
+
+
+    public void deletar(Long id) {
+        repository.deleteById(id);
     }
 }
