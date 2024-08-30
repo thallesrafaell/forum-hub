@@ -1,7 +1,7 @@
 package dev.thallesrafael.forumhub.services;
 
 
-import dev.thallesrafael.forumhub.controllers.CusoCadastroDto;
+import dev.thallesrafael.forumhub.domain.DTO.CusoCadastroDto;
 import dev.thallesrafael.forumhub.domain.Curso;
 import dev.thallesrafael.forumhub.repositories.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,8 +7,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 
-@Entity(name = "Reposta")
-@Table(name = "repostas")
+@Entity(name = "Resposta")
+@Table(name = "respostas")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,6 +18,8 @@ public class Resposta {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String mensagem;
 
     @ManyToOne
     @JoinColumn(name = "topico_id")

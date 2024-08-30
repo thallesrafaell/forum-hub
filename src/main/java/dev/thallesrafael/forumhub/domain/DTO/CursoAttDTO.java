@@ -1,4 +1,4 @@
-package dev.thallesrafael.forumhub.controllers;
+package dev.thallesrafael.forumhub.domain.DTO;
 
 import dev.thallesrafael.forumhub.domain.enums.Categoria;
 

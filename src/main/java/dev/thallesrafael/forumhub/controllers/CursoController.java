@@ -1,6 +1,7 @@
 package dev.thallesrafael.forumhub.controllers;
 
 import dev.thallesrafael.forumhub.domain.Curso;
+import dev.thallesrafael.forumhub.domain.DTO.CusoCadastroDto;
 import dev.thallesrafael.forumhub.services.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

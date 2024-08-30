@@ -1,7 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
-import dev.thallesrafael.forumhub.controllers.CursoAttDTO;
-import dev.thallesrafael.forumhub.controllers.CusoCadastroDto;
+import dev.thallesrafael.forumhub.domain.DTO.CursoAttDTO;
+import dev.thallesrafael.forumhub.domain.DTO.CusoCadastroDto;
 import dev.thallesrafael.forumhub.domain.enums.Categoria;
 import jakarta.persistence.*;
 import lombok.*;
