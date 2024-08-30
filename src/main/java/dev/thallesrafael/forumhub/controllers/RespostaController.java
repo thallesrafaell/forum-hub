@@ -1,5 +1,6 @@
 package dev.thallesrafael.forumhub.controllers;
 
+import dev.thallesrafael.forumhub.domain.DTO.RespostaAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.RespostaDTO;
 import dev.thallesrafael.forumhub.domain.Resposta;
 import dev.thallesrafael.forumhub.services.RespostaService;

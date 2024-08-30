@@ -1,7 +1,7 @@
 package dev.thallesrafael.forumhub.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import dev.thallesrafael.forumhub.controllers.RespostaAttDTO;
+import dev.thallesrafael.forumhub.domain.DTO.RespostaAttDTO;
 import jakarta.persistence.*;
 import lombok.*;
 

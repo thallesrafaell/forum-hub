@@ -23,7 +23,7 @@ public  class ValidaTopicos {
                 t -> {
                     var titulo = t.getTitulo().equals(dados.titulo());
                     var msg = t.getMensagem().equals(dados.mensagem());
-                    if(titulo && msg){
+                    if(titulo || msg){
                         throw new RuntimeException("O tópico é duplicado!");
                     }
                 }
@@ -39,7 +39,7 @@ public  class ValidaTopicos {
                 t -> {
                     var titulo = t.getTitulo().equals(dados.titulo());
                     var msg = t.getMensagem().equals(dados.mensagem());
-                    if(titulo && msg){
+                    if(titulo || msg){
                         throw new RuntimeException("O tópico é duplicado!");
                     }
                 }
