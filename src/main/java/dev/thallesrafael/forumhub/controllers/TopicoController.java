@@ -1,6 +1,8 @@
 package dev.thallesrafael.forumhub.controllers;
 
 
+import dev.thallesrafael.forumhub.domain.DTO.DadosCadastroTopico;
+import dev.thallesrafael.forumhub.domain.DTO.TopicoAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.TopicoCadastroDTO;
 import dev.thallesrafael.forumhub.domain.Topico;
 import dev.thallesrafael.forumhub.services.CursoService;
@@ -44,5 +46,17 @@ public class TopicoController {
     public ResponseEntity<Topico> listarPorId(@PathVariable Long id){
        var topico = service.listarPorId(id);
        return ResponseEntity.ok(topico);
+    }
+
+    @PutMapping
+    public ResponseEntity<Topico> atualizar(@RequestBody TopicoAttDTO dados){
+        var topico = service.atualizarTopico(dados);
+        return ResponseEntity.ok(topico);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
