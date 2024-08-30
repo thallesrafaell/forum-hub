@@ -28,6 +28,10 @@ public class Usuario {
     @JsonBackReference
     private List<Topico> topicos;
 
+    @OneToMany(mappedBy = "autor")
+    @JsonBackReference
+    private List<Resposta> respostas;
+
     public Usuario(UsuarioCadastroDTO dados){
         this.nome = dados.nome();
         this.email = dados.email();

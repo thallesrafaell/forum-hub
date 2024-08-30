@@ -88,6 +88,17 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.10.0</version>
+				<configuration>
+					<url>jdbc:mysql://localhost/forumhub_api</url>
+					<user>root</user>
+					<password>admin</password>
+					<!-- Outros parâmetros de configuração se necessário -->
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

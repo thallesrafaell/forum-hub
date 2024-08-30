@@ -1,5 +1,6 @@
 package dev.thallesrafael.forumhub.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.thallesrafael.forumhub.domain.DTO.DadosCadastroTopico;
 import dev.thallesrafael.forumhub.domain.DTO.TopicoAttDTO;
@@ -8,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -35,6 +37,10 @@ public class Topico {
     @ManyToOne
     @JoinColumn(name = "curso_id")
     private  Curso curso;
+
+    @OneToMany(mappedBy = "topico")
+    @JsonBackReference
+    private List<Resposta> respostas;
 
 
     public Topico(DadosCadastroTopico dados) {
