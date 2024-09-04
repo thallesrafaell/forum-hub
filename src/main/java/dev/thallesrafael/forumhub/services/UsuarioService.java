@@ -8,6 +8,8 @@ import dev.thallesrafael.forumhub.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
 
@@ -31,6 +33,11 @@ public class UsuarioService {
         return repository.findById(id).orElseThrow(()-> new RuntimeException("Usuário não encontrado!"));
 
     }
+
+    public List<Usuario> listar(){
+        return repository.findAll();
+    }
+
 
 
     public void deletaPorID(Long id) {
