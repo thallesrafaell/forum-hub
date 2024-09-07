@@ -7,9 +7,11 @@ import dev.thallesrafael.forumhub.domain.DTO.UsuarioAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.management.relation.Role;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,23 +44,26 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Perfil> perfis;
+    private Set<Perfil> perfil = new HashSet<>();
 
 
     public Usuario(UsuarioCadastroDTO dados){
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = dados.senha();
+        Perfil novoperfil = new Perfil();
+        novoperfil.setId(3L);
+        novoperfil.setNome(Perfil.Valores.PADRAO.name());
+        this.perfil.add(novoperfil);
     }
 
 
-    public void atualizarInformacoes(UsuarioAttDTO dados){
-
-        if(dados.nome() != null){
+    public void atualizarInformacoes(UsuarioAttDTO dados, BCryptPasswordEncoder passwordEncoder){
+        if (dados.nome() != null) {
             this.nome = dados.nome();
         }
-        if(dados.senha() != null){
-            this.senha = dados.senha();
+        if (dados.senha() != null) {
+            this.senha = passwordEncoder.encode(dados.senha());
         }
     }
 

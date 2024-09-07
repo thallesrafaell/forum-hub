@@ -2,8 +2,8 @@ package dev.thallesrafael.forumhub.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import dev.thallesrafael.forumhub.domain.DTO.DadosCadastroTopico;
 import dev.thallesrafael.forumhub.domain.DTO.TopicoAttDTO;
+import dev.thallesrafael.forumhub.domain.DTO.TopicoCadastroDTO;
 import dev.thallesrafael.forumhub.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -43,16 +43,18 @@ public class Topico {
     private List<Resposta> respostas;
 
 
-    public Topico(DadosCadastroTopico dados) {
+    public Topico(TopicoCadastroDTO dados, Curso curso, Usuario autor) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.dataCriacao = dados.data();
-        this.autor = dados.autor();
-        this.curso =dados.curso();
+        this.dataCriacao = LocalDateTime.now();
+        this.autor = autor;
+        this.curso = curso;
         this.status = Status.ABERTO;
+
     }
 
-    public void atulizarInformacoes(TopicoAttDTO dados) {
+    public void atulizarInformacoes(TopicoAttDTO dados)
+    {
         if(dados.titulo() != null){
             this.titulo = dados.titulo();
         }

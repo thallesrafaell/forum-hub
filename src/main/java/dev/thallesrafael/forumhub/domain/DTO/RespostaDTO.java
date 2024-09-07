@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record RespostaDTO(
         @NotBlank String mensagem,
-        @NotNull Long idTopico,
-        @NotNull Long idAutor) {
+        @NotNull Long idTopico) {
 
 }

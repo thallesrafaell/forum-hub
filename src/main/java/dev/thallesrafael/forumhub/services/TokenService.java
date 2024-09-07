@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -48,9 +49,9 @@ public class TokenService {
             throw new BadCredentialsException("E-mail ou senha inváidos");
         }
         var agora = Instant.now();
-        var expiresIn = 300L;
+        var expiresIn = 14400L;
 
-        var escopo = user.get().getPerfis()
+        var escopo = user.get().getPerfil()
                 .stream()
                 .map(Perfil::getNome)
                 .collect(Collectors.joining(" "));
@@ -71,17 +72,14 @@ public class TokenService {
         var usuarioDoBanco = repository.findByEmail(dados.email());
 
         if(usuarioDoBanco.isPresent()){
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new RuntimeException("E-mail já cadastrado!");
         }
         var usuario = new Usuario(dados);
         var perfil = perfilRepository.findByNome(Perfil.Valores.PADRAO.name()).get();
         usuario.setSenha(passwordEncoder.encode(dados.senha()));
-        usuario.setPerfis(Set.of(perfil));
+        usuario.setPerfil(Set.of(perfil));
         repository.save(usuario);
         return usuario;
     }
 
     }
-
-
-

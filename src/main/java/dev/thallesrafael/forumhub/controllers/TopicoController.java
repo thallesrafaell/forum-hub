@@ -1,16 +1,14 @@
 package dev.thallesrafael.forumhub.controllers;
 
 
-import dev.thallesrafael.forumhub.domain.DTO.DadosCadastroTopico;
-import dev.thallesrafael.forumhub.domain.DTO.TopicoAttDTO;
-import dev.thallesrafael.forumhub.domain.DTO.TopicoCadastroDTO;
-import dev.thallesrafael.forumhub.domain.Topico;
+import dev.thallesrafael.forumhub.domain.DTO.*;
 import dev.thallesrafael.forumhub.services.CursoService;
 import dev.thallesrafael.forumhub.services.TopicoService;
 import dev.thallesrafael.forumhub.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,28 +28,32 @@ public class TopicoController {
     private CursoService serviceCurso;
 
     @PostMapping
-    public ResponseEntity<Topico> cadastrar(@RequestBody @Valid TopicoCadastroDTO dados, UriComponentsBuilder uriBuilder){
-       var topico =  service.cadastrar(dados);
+    public ResponseEntity<TopicoResponseDto> cadastrar(@RequestBody @Valid TopicoCadastroDTO dados, UriComponentsBuilder uriBuilder, JwtAuthenticationToken token){
+       var topico =  service.cadastrar(dados,token);
+       var resposta = new TopicoResponseDto(topico);
        var uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
-        return ResponseEntity.created(uri).body(topico);
+        return ResponseEntity.created(uri).body(resposta);
     }
 
     @GetMapping
-    public ResponseEntity<List<Topico>> listar(){
-        List<Topico> list = service.listarTodos();
+    public ResponseEntity<List<TopicoResponseDto>> listar(){
+        List<TopicoResponseDto> list = service.listarTodos()
+                .stream()
+                .map(topico -> new TopicoResponseDto(topico))
+                .toList();
        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Topico> listarPorId(@PathVariable Long id){
+    public ResponseEntity<TopicoDetalhamentoDto> listarPorId(@PathVariable Long id){
        var topico = service.listarPorId(id);
        return ResponseEntity.ok(topico);
     }
 
     @PutMapping
-    public ResponseEntity<Topico> atualizar(@RequestBody TopicoAttDTO dados){
-        var topico = service.atualizarTopico(dados);
-        return ResponseEntity.ok(topico);
+    public ResponseEntity<TopicoResponseDto> atualizar(@RequestBody TopicoAttDTO dados, JwtAuthenticationToken token){
+        var topico = service.atualizarTopico(dados, token);
+        return ResponseEntity.ok(new TopicoResponseDto(topico));
     }
 
     @DeleteMapping("/{id}")

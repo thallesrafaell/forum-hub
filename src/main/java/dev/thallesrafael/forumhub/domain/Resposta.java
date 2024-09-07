@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.thallesrafael.forumhub.domain.DTO.RespostaAttDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import java.time.LocalDateTime;
 
@@ -33,8 +34,8 @@ public class Resposta {
     @JsonManagedReference
     private Usuario autor;
 
-    public void atualizarInformacoes(RespostaAttDTO dados) {
-        if (dados.mensagem() != null && dados.idAutor().equals(this.autor.getId())){
+    public void atualizarInformacoes(RespostaAttDTO dados, Long idAutor) {
+        if (dados.mensagem() != null && idAutor.equals(this.autor.getId())){
             this.mensagem = dados.mensagem();
         }
     }

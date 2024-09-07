@@ -36,7 +36,7 @@ public class AdminConfig implements CommandLineRunner {
                 user.setNome("admin");
                 user.setEmail("admin@forumhub.com");
                 user.setSenha(passwordEncoder.encode("12345"));
-                user.setPerfis(Set.of(perfilAdmin));
+                user.setPerfil(Set.of(perfilAdmin));
                 usuarioRepository.save(user);
         } else {
             System.out.println("admin já existe");

@@ -5,6 +5,7 @@ import dev.thallesrafael.forumhub.domain.DTO.TopicoCadastroDTO;
 import dev.thallesrafael.forumhub.domain.Topico;
 import dev.thallesrafael.forumhub.repositories.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -45,5 +46,12 @@ public  class ValidaTopicos {
                 }
         );
     }
+
+    public void validarUsuarioTopico(JwtAuthenticationToken token,TopicoAttDTO dados) {
+       var topico = repository.findById(dados.id());
+       if(topico.get().getAutor().getId() != Long.parseLong(token.getName())){
+           throw new RuntimeException("O usário não é o autor deste tópico");
+       }
     }
+}
 

@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -21,17 +22,10 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping
-    public ResponseEntity<UsuarioDTO> cadastrar(@RequestBody @Valid UsuarioCadastroDTO dados, UriComponentsBuilder builerUri){
-        var usuario = usuarioService.cadastrar(dados);
-        var uri = builerUri.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
-        return ResponseEntity.created(uri).body(new UsuarioDTO(usuario));
-    }
-
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> alterarUsuario(@RequestBody @Valid UsuarioAttDTO dados){
-        var usuario = usuarioService.atualizar(dados);
+    public ResponseEntity<UsuarioDTO> alterarUsuario(@RequestBody @Valid UsuarioAttDTO dados, JwtAuthenticationToken token){
+        var usuario = usuarioService.atualizar(dados,token);
 
        return ResponseEntity.ok(new UsuarioDTO(usuario));
     }
@@ -45,8 +39,8 @@ public class UsuarioController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public ResponseEntity<List<Usuario>> listar(){
-        var list = usuarioService.listar();
+    public ResponseEntity<List<UsuarioDTO>> listar(){
+        var list = usuarioService.listar().stream().map(usuario -> new UsuarioDTO(usuario)).toList();
         return ResponseEntity.ok(list);
     }
 

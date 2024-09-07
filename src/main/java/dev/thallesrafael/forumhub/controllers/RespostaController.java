@@ -2,11 +2,13 @@ package dev.thallesrafael.forumhub.controllers;
 
 import dev.thallesrafael.forumhub.domain.DTO.RespostaAttDTO;
 import dev.thallesrafael.forumhub.domain.DTO.RespostaDTO;
+import dev.thallesrafael.forumhub.domain.DTO.RespostaResponseDto;
 import dev.thallesrafael.forumhub.domain.Resposta;
 import dev.thallesrafael.forumhub.services.RespostaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,28 +22,28 @@ public class RespostaController {
     private RespostaService service;
 
     @PostMapping
-    public ResponseEntity<Resposta> cadastrar(@RequestBody @Valid RespostaDTO dados, UriComponentsBuilder uriBuilder){
-       var resposta =  service.cadastrar(dados);
+    public ResponseEntity<RespostaResponseDto> cadastrar(@RequestBody @Valid RespostaDTO dados, UriComponentsBuilder uriBuilder, JwtAuthenticationToken token){
+       var resposta =  service.cadastrar(dados,token);
        var uri = uriBuilder.path("/resposta/{id}").buildAndExpand(resposta.getId()).toUri();
-       return ResponseEntity.created(uri).body(resposta);
+       return ResponseEntity.created(uri).body(new RespostaResponseDto(resposta));
     }
 
     @GetMapping
-    public ResponseEntity<List<Resposta>> listar(){
+    public ResponseEntity<List<RespostaResponseDto>> listar(){
         var list = service.listar();
        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resposta> listarPorId(@PathVariable Long id){
+    public ResponseEntity<RespostaResponseDto> listarPorId(@PathVariable Long id){
         var resposta = service.listarPorId(id);
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.ok(new RespostaResponseDto(resposta));
     }
 
     @PutMapping
-    public ResponseEntity<Resposta> atualizar(@RequestBody RespostaAttDTO dados){
-        var resposta = service.atualizar(dados);
-        return ResponseEntity.ok(resposta);
+    public ResponseEntity<RespostaResponseDto> atualizar(@RequestBody RespostaAttDTO dados, JwtAuthenticationToken token){
+        var resposta = service.atualizar(dados, token);
+        return ResponseEntity.ok(new RespostaResponseDto(resposta));
     }
 
     @DeleteMapping("/{id}")

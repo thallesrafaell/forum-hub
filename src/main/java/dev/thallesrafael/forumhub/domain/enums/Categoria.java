@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum Categoria {
     @JsonProperty("tecnologia")
     TECNOLOGIA,
-    @JsonProperty("UI/UX")
+    @JsonProperty("UIUX")
     UIUX,
     @JsonProperty("java")
     JAVA,

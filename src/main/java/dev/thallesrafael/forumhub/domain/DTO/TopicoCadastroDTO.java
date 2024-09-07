@@ -10,6 +10,5 @@ import java.time.LocalDateTime;
 public record TopicoCadastroDTO(
         @NotBlank String titulo,
         @NotBlank String mensagem,
-        @NotNull Long idAutor,
         @NotNull Long idCurso) {
 }
