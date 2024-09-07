@@ -5,6 +5,7 @@ import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioDTO;
 import dev.thallesrafael.forumhub.domain.Usuario;
 import dev.thallesrafael.forumhub.services.UsuarioService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("usuarios")
+@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     @Autowired

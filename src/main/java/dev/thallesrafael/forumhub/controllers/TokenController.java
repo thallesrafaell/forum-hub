@@ -5,6 +5,7 @@ import dev.thallesrafael.forumhub.domain.DTO.LoginResponse;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioCadastroDTO;
 import dev.thallesrafael.forumhub.domain.DTO.UsuarioDTO;
 import dev.thallesrafael.forumhub.services.TokenService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
 public class TokenController {
 
 

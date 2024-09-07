@@ -1,9 +1,6 @@
 package dev.thallesrafael.forumhub.services;
 
-import dev.thallesrafael.forumhub.domain.DTO.RespostaResponseDto;
-import dev.thallesrafael.forumhub.domain.DTO.TopicoAttDTO;
-import dev.thallesrafael.forumhub.domain.DTO.TopicoCadastroDTO;
-import dev.thallesrafael.forumhub.domain.DTO.TopicoDetalhamentoDto;
+import dev.thallesrafael.forumhub.domain.DTO.*;
 import dev.thallesrafael.forumhub.domain.Topico;
 import dev.thallesrafael.forumhub.repositories.TopicoRepository;
 import dev.thallesrafael.forumhub.validations.ValidadorJwtInvalidado;
@@ -45,9 +42,12 @@ public class TopicoService {
         return  repository.save(novoTopico);
     }
 
-    public List<Topico> listarTodos(JwtAuthenticationToken token) {
+    public List<TopicoResponseDto> listarTodos(JwtAuthenticationToken token) {
         validadorJwtInvalidado.validar(token.getToken().getTokenValue());
-        return repository.findAll();
+        return repository.findAll()
+                .stream()
+                .map(TopicoResponseDto::new)
+                .toList();
     }
 
     public TopicoDetalhamentoDto listarPorId(Long id, JwtAuthenticationToken token) {

@@ -5,6 +5,7 @@ import dev.thallesrafael.forumhub.domain.DTO.*;
 import dev.thallesrafael.forumhub.services.CursoService;
 import dev.thallesrafael.forumhub.services.TopicoService;
 import dev.thallesrafael.forumhub.services.UsuarioService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("topicos")
+@SecurityRequirement(name = "bearer-key")
 public class TopicoController {
 
     @Autowired
@@ -37,10 +39,7 @@ public class TopicoController {
 
     @GetMapping
     public ResponseEntity<List<TopicoResponseDto>> listar(JwtAuthenticationToken token){
-        List<TopicoResponseDto> list = service.listarTodos(token)
-                .stream()
-                .map(topico -> new TopicoResponseDto(topico))
-                .toList();
+        List<TopicoResponseDto> list = service.listarTodos(token);
        return ResponseEntity.ok(list);
     }
 

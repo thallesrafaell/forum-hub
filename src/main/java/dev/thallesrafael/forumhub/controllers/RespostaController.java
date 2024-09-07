@@ -5,6 +5,7 @@ import dev.thallesrafael.forumhub.domain.DTO.RespostaDTO;
 import dev.thallesrafael.forumhub.domain.DTO.RespostaResponseDto;
 import dev.thallesrafael.forumhub.domain.Resposta;
 import dev.thallesrafael.forumhub.services.RespostaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("respostas")
+@SecurityRequirement(name = "bearer-key")
 public class RespostaController {
 
     @Autowired
