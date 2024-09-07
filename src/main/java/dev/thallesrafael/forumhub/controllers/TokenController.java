@@ -9,9 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -38,5 +37,17 @@ public class TokenController {
         var usuario = service.cadastrar(dados);
         var uri = builerUri.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).body(new UsuarioDTO(usuario));
+    }
+
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorizationHeader) {
+        // Extrai o token do cabeçalho Authorization
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        // Adiciona o token ao Redis
+        service.logout(token);
+
+        return ResponseEntity.ok("Logout realizado com sucesso.");
     }
 }

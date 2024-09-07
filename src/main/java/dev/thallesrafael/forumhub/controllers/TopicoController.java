@@ -36,8 +36,8 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TopicoResponseDto>> listar(){
-        List<TopicoResponseDto> list = service.listarTodos()
+    public ResponseEntity<List<TopicoResponseDto>> listar(JwtAuthenticationToken token){
+        List<TopicoResponseDto> list = service.listarTodos(token)
                 .stream()
                 .map(topico -> new TopicoResponseDto(topico))
                 .toList();
@@ -45,8 +45,8 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TopicoDetalhamentoDto> listarPorId(@PathVariable Long id){
-       var topico = service.listarPorId(id);
+    public ResponseEntity<TopicoDetalhamentoDto> listarPorId(@PathVariable Long id, JwtAuthenticationToken token){
+       var topico = service.listarPorId(id,token);
        return ResponseEntity.ok(topico);
     }
 
@@ -57,8 +57,8 @@ public class TopicoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
-        service.deletar(id);
+    public ResponseEntity<Void> deletarPorId(@PathVariable Long id, JwtAuthenticationToken token){
+        service.deletar(id, token);
         return ResponseEntity.noContent().build();
     }
 }

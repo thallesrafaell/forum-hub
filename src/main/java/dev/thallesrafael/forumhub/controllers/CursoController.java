@@ -6,6 +6,7 @@ import dev.thallesrafael.forumhub.services.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -17,28 +18,28 @@ public class CursoController {
     private CursoService service;
 
     @PostMapping
-    public ResponseEntity<Curso> cadastrar(@RequestBody @Valid CusoCadastroDto dados, UriComponentsBuilder uriBuilder){
-        var curso = service.cadastrar(dados);
+    public ResponseEntity<Curso> cadastrar(@RequestBody @Valid CusoCadastroDto dados, UriComponentsBuilder uriBuilder, JwtAuthenticationToken token){
+        var curso = service.cadastrar(dados, token);
         var uri = uriBuilder.path("/cursos/{id}").buildAndExpand(curso.getId()).toUri();
         return ResponseEntity.created(uri).body(curso);
     }
 
     @PutMapping
-    public ResponseEntity<Curso> atualizar(@RequestBody Curso dados){
-        var curso = service.atualizar(dados);
+    public ResponseEntity<Curso> atualizar(@RequestBody Curso dados, JwtAuthenticationToken token){
+        var curso = service.atualizar(dados, token);
         return ResponseEntity.ok(curso);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Curso> cursoPorId(@PathVariable Long id){
-        var curso = service.cursoPorId(id);
+    public ResponseEntity<Curso> cursoPorId(@PathVariable Long id, JwtAuthenticationToken token){
+        var curso = service.cursoPorId(id, token);
         return ResponseEntity.ok(curso);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id){
-        service.deletarPorId(id);
+    public ResponseEntity<Void> excluir(@PathVariable Long id, JwtAuthenticationToken token){
+        service.deletarPorId(id, token);
         return ResponseEntity.noContent().build();
     }
 }

@@ -32,21 +32,21 @@ public class UsuarioController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> usuarioPorId(@PathVariable Long id){
-        var usuario = usuarioService.usuarioPorId(id);
+    public ResponseEntity<UsuarioDTO> usuarioPorId(@PathVariable Long id, JwtAuthenticationToken token){
+        var usuario = usuarioService.usuarioPorId(id,token);
         return ResponseEntity.ok(new UsuarioDTO(usuario));
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public ResponseEntity<List<UsuarioDTO>> listar(){
-        var list = usuarioService.listar().stream().map(usuario -> new UsuarioDTO(usuario)).toList();
+    public ResponseEntity<List<UsuarioDTO>> listar(JwtAuthenticationToken token){
+        var list = usuarioService.listar(token).stream().map(usuario -> new UsuarioDTO(usuario)).toList();
         return ResponseEntity.ok(list);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletaPorId(@PathVariable Long id){
-        usuarioService.deletaPorID(id);
+    public ResponseEntity<Void> deletaPorId(@PathVariable Long id, JwtAuthenticationToken token){
+        usuarioService.deletaPorID(id, token);
         return ResponseEntity.noContent().build();
     }
 }

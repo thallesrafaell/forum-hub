@@ -29,14 +29,14 @@ public class RespostaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RespostaResponseDto>> listar(){
-        var list = service.listar();
+    public ResponseEntity<List<RespostaResponseDto>> listar(JwtAuthenticationToken token){
+        var list = service.listar(token);
        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RespostaResponseDto> listarPorId(@PathVariable Long id){
-        var resposta = service.listarPorId(id);
+    public ResponseEntity<RespostaResponseDto> listarPorId(@PathVariable Long id, JwtAuthenticationToken token){
+        var resposta = service.listarPorId(id,token);
         return ResponseEntity.ok(new RespostaResponseDto(resposta));
     }
 
@@ -47,8 +47,8 @@ public class RespostaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
-        service.deletar(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long id, JwtAuthenticationToken token){
+        service.deletar(id, token);
         return ResponseEntity.noContent().build();
     }
 }

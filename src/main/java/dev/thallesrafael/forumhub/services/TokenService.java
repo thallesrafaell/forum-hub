@@ -8,6 +8,7 @@ import dev.thallesrafael.forumhub.domain.Usuario;
 import dev.thallesrafael.forumhub.repositories.PerfilRepository;
 import dev.thallesrafael.forumhub.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,12 +35,16 @@ public class TokenService {
 
     private BCryptPasswordEncoder passwordEncoder;
 
+    private final StringRedisTemplate redisTemplate;
+
+
     @Autowired
-    public TokenService(JwtEncoder encoder, UsuarioRepository repository, PerfilRepository perfilRepository, BCryptPasswordEncoder passwordEncoder) {
+    public TokenService(JwtEncoder encoder, UsuarioRepository repository, PerfilRepository perfilRepository, BCryptPasswordEncoder passwordEncoder, StringRedisTemplate redisTemplate) {
         this.encoder = encoder;
         this.repository = repository;
         this.perfilRepository = perfilRepository;
         this.passwordEncoder = passwordEncoder;
+        this.redisTemplate = redisTemplate;
     }
 
     public LoginResponse login(LoginRequest request){
@@ -82,4 +87,9 @@ public class TokenService {
         return usuario;
     }
 
+    public void logout(String token) {
+        // Define um tempo de expiração para o token de logout
+        Duration expiração = Duration.ofHours(4);
+        redisTemplate.opsForValue().set(token, "invalidado", expiração);
+    }
     }
