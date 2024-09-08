@@ -3,6 +3,7 @@ package dev.thallesrafael.forumhub.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,7 +16,7 @@ public class RedisConfig {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("redis", 6379);
+        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("red-crefjtaj1k6c73dcu6p0", 6379);
         return new LettuceConnectionFactory(config);
     }
 
