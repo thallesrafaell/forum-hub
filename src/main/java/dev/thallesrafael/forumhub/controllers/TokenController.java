@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @SecurityRequirement(name = "bearer-key")
+@CrossOrigin
 public class TokenController {
 
 

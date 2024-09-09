@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("topicos")
 @SecurityRequirement(name = "bearer-key")
+@CrossOrigin
 public class TopicoController {
 
     @Autowired
