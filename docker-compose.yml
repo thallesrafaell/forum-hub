@@ -9,15 +9,24 @@ services:
       - "8080:8080"
     depends_on:
       - redis
-    environment:
-      - DATASOURCE_URL=${DATASOURCE_URL}
-      - DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
-      - DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
-      - SPRING_REDIS_HOST=redis
-      - SPRING_REDIS_PORT=6379
+      - mysql
 
   redis:
     image: redis:latest
     container_name: forumhub_redis
     ports:
       - "6379:6379"
+
+  mysql:
+    image: mysql:latest
+    container_name: forumhub_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: forumhub_api
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
