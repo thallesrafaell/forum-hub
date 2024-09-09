@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("respostas")
 @SecurityRequirement(name = "bearer-key")
-@CrossOrigin
+@CrossOrigin("*")
 public class RespostaController {
 
     @Autowired

@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("/cursos")
 @SecurityRequirement(name = "bearer-key")
-@CrossOrigin
+@CrossOrigin("*")
 public class CursoController {
 
     @Autowired
