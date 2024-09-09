@@ -39,15 +39,22 @@ O docker-compose.yml está configurado para criar e iniciar contêineres para a 
 ```bash
 Copiar código
 docker-compose up
-Acesse a aplicação:
 ```
+### Acesse a aplicação:
 A aplicação estará disponível em http://localhost:8080.
 
 ## Deploy
 A aplicação está disponível no Render. Você pode testá-la aqui. Note que a API pode demorar um pouco para responder a primeira requisição devido ao hibernamento após um certo tempo de inatividade.
+<br>
+<br>
+[Deploy aqui!](https://forum-hub.onrender.com/swagger-ui/index.html)
+
 
 ## Documentação da API
 A documentação da API está disponível em Swagger UI.
+<br>
+<br>
+[Documentação aqui!](https://forum-hub.onrender.com/swagger-ui/index.html)
 
 ## Migrações de Banco de Dados
 As migrações são gerenciadas pelo Flyway. As alterações no esquema do banco de dados serão aplicadas automaticamente quando a aplicação for iniciada.
